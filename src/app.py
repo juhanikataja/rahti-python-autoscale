@@ -3,15 +3,25 @@ import math
 import time
 
 app = Flask(__name__)
+
+def factorial(N, R, imax):
+  thesum = 0.0
+  dx = R/imax
+  start = time.time()
+  for i in range(1,imax):
+    thesum = thesum + (i*dx)**N * math.exp(-i*dx)
+  thesum = thesum*dx
+  end = time.time()
+  return str(N) + "! =~ " + str(thesum) + "  (in " + str(end-start) +"s)"
+
 @app.route("/")
 def home():
-    thesum = 0.0
-    imax = 1000000
-    start = time.time()
-    for i in range(1,imax):
-      thesum = thesum + 1.0/(1.0 + math.exp(i/(1.0*imax)))
+    return factorial(5, 100.0, 1000000)
 
-    end = time.time()
-    return "Hello, World! The Sum is " + str(thesum) + " in " + str(end-start)
+@app.route("/<int:N>/<int:I>")
+def home_nri(N,I):
+    return factorial(N, 100.0, 10**I)
+
 if __name__ == "__main__":
+    print(home())
     app.run(debug=True, port=8080, host='0.0.0.0')
