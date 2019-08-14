@@ -25,9 +25,8 @@ oc start-build python-load --from-dir=. -F
 
 Use the `oc new-app`:
 ```bash
-oc new-app https://github.com/juhanikataja/rahti-python-autoscale --name=python-load --labels='app=python-load' -e APP_FILE=src/app.py
+oc new-app https://github.com/juhanikataja/rahti-python-autoscale --name=python-load -e APP_FILE=src/app.py
 ```
-
 
 ## Expose to internet and modify the DeploymentConfig
 
